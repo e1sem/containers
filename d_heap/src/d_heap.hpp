@@ -25,12 +25,12 @@
 template< class T, class Compare = std::less< typename T > >
 class DHeap
 {
-	public:
+    public:
 
-		using value_type      = T;
+        using value_type      = T;
         using pointer_type    = T*;
         using size_type       = std::size_t;
-		using reference       = T&;
+        using reference       = T&;
         using const_reference = T const&;
 
         /*---------------------------------------------------------------------------*/
@@ -53,43 +53,43 @@ class DHeap
 
         const_reference get_min() const;
 
-		size_type size() const;
+        size_type size() const;
 
-		bool empty() const;
+        bool empty() const;
 
         /*---------------------------------------------------------------------------*/
 
         void insert( const_reference _value );
 
-		void delete_min();
+        void delete_min();
 
-		void hilling();
+        void hilling();
 
-		void clear();
+        void clear();
 
         /*---------------------------------------------------------------------------*/
 
-		~DHeap() = default;
+        ~DHeap() = default;
 
-	private:
+    private:
 
         std::vector< value_type > m_data;
 
-		size_type m_dParam;
+        size_type m_dParam;
 
-		Compare m_functor;
-
-        /*---------------------------------------------------------------------------*/
-
-		size_type min_child( size_type _position );
-
-		void swim( size_type _position );
-
-		void sink( size_type _position );
+        Compare m_functor;
 
         /*---------------------------------------------------------------------------*/
 
-		void checkEmpty() const;
+        size_type min_child( size_type _position );
+
+        void swim( size_type _position );
+
+        void sink( size_type _position );
+
+        /*---------------------------------------------------------------------------*/
+
+        void checkEmpty() const;
 
 }; // class DHeap
 
@@ -105,7 +105,7 @@ template< class T, class Compare >
 DHeap< T, Compare >::DHeap( std::initializer_list< T > _list, size_type _dParam, Compare const& _predicate )
     : m_data( _list ), m_dParam( _dParam ), m_functor( _predicate )
 {
-	hilling();
+    hilling();
 }
 
 /*-----------------------------------------------------------------------------------*/
@@ -127,11 +127,11 @@ DHeap< T, Compare >::DHeap( DHeap< T, Compare > && _other )
 template< class T, class Compare >
 DHeap< T, Compare >& DHeap< T, Compare >::operator = ( DHeap< T, Compare > const& _other )
 {
-	m_data    = _other.m_data;
-	m_dParam  = _other.m_dParam;
-	m_functor = _other.m_functor;
+    m_data    = _other.m_data;
+    m_dParam  = _other.m_dParam;
+    m_functor = _other.m_functor;
 
-	return *this;
+    return *this;
 }
 
 /*-----------------------------------------------------------------------------------*/
@@ -139,11 +139,11 @@ DHeap< T, Compare >& DHeap< T, Compare >::operator = ( DHeap< T, Compare > const
 template< class T, class Compare >
 DHeap< T, Compare >& DHeap< T, Compare >::operator = ( DHeap< T, Compare > && _other )
 {
-	std::swap( m_data, _other.m_data );
-	std::swap( m_dParam, _other.m_dParam );
-	std::swap( m_functor, _other.m_functor );
+    std::swap( m_data, _other.m_data );
+    std::swap( m_dParam, _other.m_dParam );
+    std::swap( m_functor, _other.m_functor );
 
-	return *this;
+    return *this;
 }
 
 /*-----------------------------------------------------------------------------------*/
@@ -151,8 +151,8 @@ DHeap< T, Compare >& DHeap< T, Compare >::operator = ( DHeap< T, Compare > && _o
 template< class T, class Compare >
 typename DHeap< T, Compare >::const_reference DHeap< T, Compare >::get_min() const
 {
-	checkEmpty();
-	return m_data[0];
+    checkEmpty();
+    return m_data[0];
 }
 
 /*-----------------------------------------------------------------------------------*/
@@ -160,7 +160,7 @@ typename DHeap< T, Compare >::const_reference DHeap< T, Compare >::get_min() con
 template< class T, class Compare >
 typename DHeap< T, Compare >::size_type DHeap< T, Compare >::size() const
 {
-	return m_data.size();
+    return m_data.size();
 }
 
 /*-----------------------------------------------------------------------------------*/
@@ -168,7 +168,7 @@ typename DHeap< T, Compare >::size_type DHeap< T, Compare >::size() const
 template< class T, class Compare >
 bool DHeap< T, Compare >::empty() const
 {
-	return m_data.empty();
+    return m_data.empty();
 }
 
 /*-----------------------------------------------------------------------------------*/
@@ -176,8 +176,8 @@ bool DHeap< T, Compare >::empty() const
 template< class T, class Compare >
 void DHeap< T, Compare >::insert( const_reference _value )
 {
-	m_data.push_back( _value );
-	swim( size() - 1 );
+    m_data.push_back( _value );
+    swim( size() - 1 );
 }
 
 /*-----------------------------------------------------------------------------------*/
@@ -185,13 +185,13 @@ void DHeap< T, Compare >::insert( const_reference _value )
 template< class T, class Compare >
 void DHeap< T, Compare >::delete_min()
 {
-	checkEmpty();
+    checkEmpty();
 
-	std::swap( m_data[0], m_data[size() - 1] );
-	m_data.pop_back();
+    std::swap( m_data[0], m_data[size() - 1] );
+    m_data.pop_back();
 
-	if( size() )
-		sink( 0 );
+    if( size() )
+        sink( 0 );
 }
 
 /*-----------------------------------------------------------------------------------*/
@@ -199,10 +199,10 @@ void DHeap< T, Compare >::delete_min()
 template< class T, class Compare >
 void DHeap< T, Compare >::hilling()
 {
-	checkEmpty();
+    checkEmpty();
 
     for( size_type i = 0; i < size(); ++i )
-		swim( i );
+        swim( i );
 }
 
 /*-----------------------------------------------------------------------------------*/
@@ -210,7 +210,7 @@ void DHeap< T, Compare >::hilling()
 template< class T, class Compare >
 void DHeap< T, Compare >::clear()
 {
-	m_data.clear();
+    m_data.clear();
 }
 
 /*-----------------------------------------------------------------------------------*/
@@ -219,32 +219,32 @@ template< class T, class Compare >
 typename DHeap< T, Compare >::size_type DHeap< T, Compare >::min_child( size_type _position )
 {
     if( _position * m_dParam >= size() - 1 )
-		return 0;
-	else
-	{
-		size_type first_child = ( _position * m_dParam ) + 1;
+        return 0;
+    else
+    {
+        size_type first_child = ( _position * m_dParam ) + 1;
         size_type last_child  = ( _position + 1 ) * m_dParam;
 
         if( last_child >= size() )
-			last_child = size() - 1;
+            last_child = size() - 1;
 
         pointer_type minElement = &m_data[first_child];
-		size_type posMin = first_child;
+        size_type posMin = first_child;
 
         for( size_type i = first_child + 1; i <= last_child; ++i )
-		{
+        {
             if( m_functor( m_data[i], *minElement ) )
-			{
+            {
                 minElement = &m_data[i];
-				posMin = i;
-			}
-		}
+                posMin = i;
+            }
+        }
 
         if( m_functor( *minElement, m_data[_position] ) )
-			return posMin;
-		else
-			return 0;
-	}
+            return posMin;
+        else
+            return 0;
+    }
 }
 
 /*-----------------------------------------------------------------------------------*/
@@ -254,12 +254,12 @@ void DHeap< T, Compare >::swim( size_type _position )
 {
     size_type parent = ( _position - 1 ) / m_dParam;
 
-	while( _position && m_functor( m_data[_position], m_data[parent] ) )
-	{
-		std::swap( m_data[_position], m_data[parent] );
-		_position = parent; 
+    while( _position && m_functor( m_data[_position], m_data[parent] ) )
+    {
+        std::swap( m_data[_position], m_data[parent] );
+        _position = parent; 
         parent = ( _position - 1 ) / m_dParam;
-	}
+    }
 }
 
 /*-----------------------------------------------------------------------------------*/
@@ -267,14 +267,14 @@ void DHeap< T, Compare >::swim( size_type _position )
 template< class T, class Compare >
 void DHeap< T, Compare >::sink( size_type _position )
 {
-	size_type wrong = min_child( _position );
+    size_type wrong = min_child( _position );
 
     while( wrong && m_functor( m_data[wrong], m_data[_position] ) )
-	{
-		std::swap( m_data[wrong], m_data[_position] );
-		_position = wrong;
-		wrong = min_child( _position );
-	}
+    {
+        std::swap( m_data[wrong], m_data[_position] );
+        _position = wrong;
+        wrong = min_child( _position );
+    }
 }
 
 /*-----------------------------------------------------------------------------------*/
